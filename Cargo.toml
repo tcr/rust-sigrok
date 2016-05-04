@@ -1,6 +1,6 @@
 [package]
 name = "sigrok"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Tim Ryan <id@timryan.org>"]
 description = "High-levelbBindings for libsigrok"
 license = "GPL-3.0"
@@ -9,4 +9,4 @@ homepage = "https://github.com/tcr/rust-sigrok.git"
 
 [dependencies]
 sigrok-sys = "0.2.0"
-glib-sys = "*"
+glib-sys = "0.3.0"

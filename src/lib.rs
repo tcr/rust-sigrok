@@ -6,7 +6,7 @@ use sigrok_sys::{sr_dev_list, sr_driver_init, sr_driver_scan, Struct_sr_dev_inst
 use sigrok_sys::{sr_dev_inst_channels_get, Struct_sr_channel, sr_output_find};
 use sigrok_sys::{Struct_sr_output_module, sr_output_new, sr_session_new, Struct_sr_session};
 use sigrok_sys::{sr_session_datafeed_callback_add, Struct_sr_datafeed_packet, sr_session_dev_add};
-use sigrok_sys::{sr_dev_channel_enable};
+use sigrok_sys::{sr_dev_channel_enable, sr_session_start};
 use std::mem;
 use std::io;
 use std::ffi::{CStr, CString};
@@ -205,7 +205,7 @@ struct Session {
 }
 
 unsafe extern "C" fn sr_session_callback(inst: *const Struct_sr_dev_inst, packet: *const Struct_sr_datafeed_packet, data: *mut os::raw::c_void) {
-    // TODO
+    println!("got callback!");
 }
 
 type SesCall = Fn(&DriverInstance, *const Struct_sr_datafeed_packet);
@@ -237,6 +237,12 @@ impl Session {
     fn add_instance(&self, instance: &DriverInstance) {
         unsafe {
             let _ = sr_session_dev_add(self.context, instance.context);
+        }
+    }
+
+    fn start(&self) {
+        unsafe {
+            sr_session_start(self.context);
         }
     }
 }
@@ -282,12 +288,10 @@ fn it_works() {
                 println!("channel {:?}", chan.name());
                 chan.enable();
             }
-
-            //select_channels
-            // device.output(&output_find("binary").unwrap());
         }
 
         unsafe {
+            ses.start();
             let main_loop = g_main_loop_new(0x0 as *mut _, 0);
 
             g_main_loop_run(main_loop);
