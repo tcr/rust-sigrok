@@ -150,6 +150,7 @@ impl DriverChannelGroup {
 #[derive(Debug)]
 pub enum ConfigOption {
     PatternMode(String),
+    SampleRate(u64),
 }
 
 #[derive(Debug)]
@@ -197,7 +198,13 @@ impl DriverInstance {
             match config {
                 &ConfigOption::PatternMode(ref value) => {
                     let gvar = glib_sys::g_variant_new_string(CString::new(value.as_bytes()).unwrap().as_ptr());
-                    sr_config_set(self.context, group.context, Enum_sr_configkey::SR_CONF_PATTERN_MODE as u32, gvar);
+                    let res = sr_config_set(self.context, group.context, Enum_sr_configkey::SR_CONF_PATTERN_MODE as u32, gvar);
+                    // assert_eq!(res, 0);
+                }
+                &ConfigOption::SampleRate(value) => {
+                    let gvar = glib_sys::g_variant_new_uint64(value);
+                    let res = sr_config_set(self.context, group.context, Enum_sr_configkey::SR_CONF_SAMPLERATE as u32, gvar);
+                    // assert_eq!(res, 0);
                 }
             }
         }
@@ -409,6 +416,11 @@ fn it_works() {
             // Set pattern mode on digital outputs.
             if let Some(group) = device.channel_groups().get(0) {
                 device.config_set(&group, &ConfigOption::PatternMode("pattern".to_owned()));
+            }
+
+            // Set sample rate.
+            for group in device.channel_groups() {
+                device.config_set(&group, &ConfigOption::SampleRate(1_000_000));
             }
         }
 
