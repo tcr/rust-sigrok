@@ -4,10 +4,10 @@ extern crate time;
 
 use sigrok_sys::{Struct_sr_context, sr_init, sr_exit, sr_driver_list, Struct_sr_dev_driver};
 use sigrok_sys::{sr_dev_list, sr_driver_init, sr_driver_scan, Struct_sr_dev_inst};
-use sigrok_sys::{sr_dev_inst_channels_get, Struct_sr_channel, sr_output_find};
-use sigrok_sys::{Struct_sr_output_module, sr_output_new, sr_session_new, Struct_sr_session};
+use sigrok_sys::{sr_dev_inst_channels_get, Struct_sr_channel};
+use sigrok_sys::{sr_session_new, Struct_sr_session};
 use sigrok_sys::{sr_session_datafeed_callback_add, Struct_sr_datafeed_packet, sr_session_dev_add};
-use sigrok_sys::{sr_dev_channel_enable, sr_session_start, Enum_sr_packettype, Struct_sr_datafeed_analog};
+use sigrok_sys::{sr_dev_channel_enable, sr_session_start, Enum_sr_packettype};
 use sigrok_sys::{Struct_sr_datafeed_logic, Enum_sr_configkey, Struct_sr_channel_group};
 use sigrok_sys::{sr_dev_inst_channel_groups_get, sr_config_set, Struct_sr_datafeed_header};
 use std::mem;
@@ -15,7 +15,7 @@ use std::io;
 use std::ffi::{CStr, CString};
 use std::os;
 use std::slice;
-use glib_sys::{GSList, GHashTable, g_main_loop_new, g_main_loop_run};
+use glib_sys::{GSList, g_main_loop_new, g_main_loop_run};
 
 #[derive(Debug)]
 pub struct Sigrok {
@@ -257,12 +257,12 @@ impl Drop for Sigrok {
     }
 }
 
-struct Session {
+pub struct Session {
     context: *mut Struct_sr_session,
     _callbacks: Vec<Box<SesCall>>,
 }
 
-enum Datafeed<'a> {
+pub enum Datafeed<'a> {
     Header {
         feed_version: i32,
         start_time: time::Timespec,
@@ -323,10 +323,10 @@ unsafe extern "C" fn sr_session_callback(inst: *const Struct_sr_dev_inst, packet
     }
 }
 
-type SesCall = Fn(&DriverInstance, &Datafeed);
+pub type SesCall = Fn(&DriverInstance, &Datafeed);
 
 impl Session {
-    fn new(ctx: &mut Sigrok) -> Option<Session> {
+    pub fn new(ctx: &mut Sigrok) -> Option<Session> {
         unsafe {
             let mut session = Session {
                 context: mem::uninitialized(),
@@ -340,20 +340,20 @@ impl Session {
         }
     }
 
-    fn callback_add(&mut self, mut callback: Box<SesCall>) {
+    pub fn callback_add(&mut self, mut callback: Box<SesCall>) {
         unsafe {
             self._callbacks.push(callback);
             let _ = sr_session_datafeed_callback_add(self.context, Some(sr_session_callback), mem::transmute(&self._callbacks[self._callbacks.len() - 1]));
         }
     }
 
-    fn add_instance(&self, instance: &DriverInstance) {
+    pub fn add_instance(&self, instance: &DriverInstance) {
         unsafe {
             let _ = sr_session_dev_add(self.context, instance.context);
         }
     }
 
-    fn start(&self) {
+    pub fn start(&self) {
         unsafe {
             sr_session_start(self.context);
         }
