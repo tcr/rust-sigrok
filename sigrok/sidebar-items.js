@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ConfigOption",""],["Datafeed",""]],"fn":[["main_loop",""]],"struct":[["Driver",""],["DriverChannel",""],["DriverChannelGroup",""],["DriverContext",""],["DriverInstance",""],["Session",""],["Sigrok",""]],"type":[["SessionCallback",""]]});

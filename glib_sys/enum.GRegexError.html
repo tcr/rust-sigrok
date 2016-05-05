@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `GRegexError` enum in crate `glib_sys`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, GRegexError">
+
+    <title>glib_sys::GRegexError - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>glib_sys</a></p><script>window.sidebarCurrent = {name: 'GRegexError', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='index.html'>glib_sys</a>::<wbr><a class='enum' href=''>GRegexError</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-837' class='srclink' href='../src/glib_sys/lib.rs.html#418-476' title='goto source code'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum GRegexError {
+    Compile,
+    Optimize,
+    Replace,
+    Match,
+    Internal,
+    StrayBackslash,
+    MissingControlChar,
+    UnrecognizedEscape,
+    QuantifiersOutOfOrder,
+    QuantifierTooBig,
+    UnterminatedCharacterClass,
+    InvalidEscapeInCharacterClass,
+    RangeOutOfOrder,
+    NothingToRepeat,
+    UnrecognizedCharacter,
+    PosixNamedClassOutsideClass,
+    UnmatchedParenthesis,
+    InexistentSubpatternReference,
+    UnterminatedComment,
+    ExpressionTooLarge,
+    MemoryError,
+    VariableLengthLookbehind,
+    MalformedCondition,
+    TooManyConditionalBranches,
+    AssertionExpected,
+    UnknownPosixClassName,
+    PosixCollatingElementsNotSupported,
+    HexCodeTooLarge,
+    InvalidCondition,
+    SingleByteMatchInLookbehind,
+    InfiniteLoop,
+    MissingSubpatternNameTerminator,
+    DuplicateSubpatternName,
+    MalformedProperty,
+    UnknownProperty,
+    SubpatternNameTooLong,
+    TooManySubpatterns,
+    InvalidOctalValue,
+    TooManyBranchesInDefine,
+    DefineRepetion,
+    InconsistentNewlineOptions,
+    MissingBackReference,
+    InvalidRelativeReference,
+    BacktrackingControlVerbArgumentForbidden,
+    UnknownBacktrackingControlVerb,
+    NumberTooBig,
+    MissingSubpatternName,
+    MissingDigit,
+    InvalidDataCharacter,
+    ExtraSubpatternName,
+    BacktrackingControlVerbArgumentRequired,
+    InvalidControlChar,
+    MissingName,
+    NotSupportedInClass,
+    TooManyForwardReferences,
+    NameTooLong,
+    CharacterValueTooLarge,
+}</pre><h2 class='variants'>Variants</h2>
+<table class='variants_table'><tr><td id='variant.Compile'><code>Compile</code></td><td></td><td></td></tr><tr><td id='variant.Optimize'><code>Optimize</code></td><td></td><td></td></tr><tr><td id='variant.Replace'><code>Replace</code></td><td></td><td></td></tr><tr><td id='variant.Match'><code>Match</code></td><td></td><td></td></tr><tr><td id='variant.Internal'><code>Internal</code></td><td></td><td></td></tr><tr><td id='variant.StrayBackslash'><code>StrayBackslash</code></td><td></td><td></td></tr><tr><td id='variant.MissingControlChar'><code>MissingControlChar</code></td><td></td><td></td></tr><tr><td id='variant.UnrecognizedEscape'><code>UnrecognizedEscape</code></td><td></td><td></td></tr><tr><td id='variant.QuantifiersOutOfOrder'><code>QuantifiersOutOfOrder</code></td><td></td><td></td></tr><tr><td id='variant.QuantifierTooBig'><code>QuantifierTooBig</code></td><td></td><td></td></tr><tr><td id='variant.UnterminatedCharacterClass'><code>UnterminatedCharacterClass</code></td><td></td><td></td></tr><tr><td id='variant.InvalidEscapeInCharacterClass'><code>InvalidEscapeInCharacterClass</code></td><td></td><td></td></tr><tr><td id='variant.RangeOutOfOrder'><code>RangeOutOfOrder</code></td><td></td><td></td></tr><tr><td id='variant.NothingToRepeat'><code>NothingToRepeat</code></td><td></td><td></td></tr><tr><td id='variant.UnrecognizedCharacter'><code>UnrecognizedCharacter</code></td><td></td><td></td></tr><tr><td id='variant.PosixNamedClassOutsideClass'><code>PosixNamedClassOutsideClass</code></td><td></td><td></td></tr><tr><td id='variant.UnmatchedParenthesis'><code>UnmatchedParenthesis</code></td><td></td><td></td></tr><tr><td id='variant.InexistentSubpatternReference'><code>InexistentSubpatternReference</code></td><td></td><td></td></tr><tr><td id='variant.UnterminatedComment'><code>UnterminatedComment</code></td><td></td><td></td></tr><tr><td id='variant.ExpressionTooLarge'><code>ExpressionTooLarge</code></td><td></td><td></td></tr><tr><td id='variant.MemoryError'><code>MemoryError</code></td><td></td><td></td></tr><tr><td id='variant.VariableLengthLookbehind'><code>VariableLengthLookbehind</code></td><td></td><td></td></tr><tr><td id='variant.MalformedCondition'><code>MalformedCondition</code></td><td></td><td></td></tr><tr><td id='variant.TooManyConditionalBranches'><code>TooManyConditionalBranches</code></td><td></td><td></td></tr><tr><td id='variant.AssertionExpected'><code>AssertionExpected</code></td><td></td><td></td></tr><tr><td id='variant.UnknownPosixClassName'><code>UnknownPosixClassName</code></td><td></td><td></td></tr><tr><td id='variant.PosixCollatingElementsNotSupported'><code>PosixCollatingElementsNotSupported</code></td><td></td><td></td></tr><tr><td id='variant.HexCodeTooLarge'><code>HexCodeTooLarge</code></td><td></td><td></td></tr><tr><td id='variant.InvalidCondition'><code>InvalidCondition</code></td><td></td><td></td></tr><tr><td id='variant.SingleByteMatchInLookbehind'><code>SingleByteMatchInLookbehind</code></td><td></td><td></td></tr><tr><td id='variant.InfiniteLoop'><code>InfiniteLoop</code></td><td></td><td></td></tr><tr><td id='variant.MissingSubpatternNameTerminator'><code>MissingSubpatternNameTerminator</code></td><td></td><td></td></tr><tr><td id='variant.DuplicateSubpatternName'><code>DuplicateSubpatternName</code></td><td></td><td></td></tr><tr><td id='variant.MalformedProperty'><code>MalformedProperty</code></td><td></td><td></td></tr><tr><td id='variant.UnknownProperty'><code>UnknownProperty</code></td><td></td><td></td></tr><tr><td id='variant.SubpatternNameTooLong'><code>SubpatternNameTooLong</code></td><td></td><td></td></tr><tr><td id='variant.TooManySubpatterns'><code>TooManySubpatterns</code></td><td></td><td></td></tr><tr><td id='variant.InvalidOctalValue'><code>InvalidOctalValue</code></td><td></td><td></td></tr><tr><td id='variant.TooManyBranchesInDefine'><code>TooManyBranchesInDefine</code></td><td></td><td></td></tr><tr><td id='variant.DefineRepetion'><code>DefineRepetion</code></td><td></td><td></td></tr><tr><td id='variant.InconsistentNewlineOptions'><code>InconsistentNewlineOptions</code></td><td></td><td></td></tr><tr><td id='variant.MissingBackReference'><code>MissingBackReference</code></td><td></td><td></td></tr><tr><td id='variant.InvalidRelativeReference'><code>InvalidRelativeReference</code></td><td></td><td></td></tr><tr><td id='variant.BacktrackingControlVerbArgumentForbidden'><code>BacktrackingControlVerbArgumentForbidden</code></td><td></td><td></td></tr><tr><td id='variant.UnknownBacktrackingControlVerb'><code>UnknownBacktrackingControlVerb</code></td><td></td><td></td></tr><tr><td id='variant.NumberTooBig'><code>NumberTooBig</code></td><td></td><td></td></tr><tr><td id='variant.MissingSubpatternName'><code>MissingSubpatternName</code></td><td></td><td></td></tr><tr><td id='variant.MissingDigit'><code>MissingDigit</code></td><td></td><td></td></tr><tr><td id='variant.InvalidDataCharacter'><code>InvalidDataCharacter</code></td><td></td><td></td></tr><tr><td id='variant.ExtraSubpatternName'><code>ExtraSubpatternName</code></td><td></td><td></td></tr><tr><td id='variant.BacktrackingControlVerbArgumentRequired'><code>BacktrackingControlVerbArgumentRequired</code></td><td></td><td></td></tr><tr><td id='variant.InvalidControlChar'><code>InvalidControlChar</code></td><td></td><td></td></tr><tr><td id='variant.MissingName'><code>MissingName</code></td><td></td><td></td></tr><tr><td id='variant.NotSupportedInClass'><code>NotSupportedInClass</code></td><td></td><td></td></tr><tr><td id='variant.TooManyForwardReferences'><code>TooManyForwardReferences</code></td><td></td><td></td></tr><tr><td id='variant.NameTooLong'><code>NameTooLong</code></td><td></td><td></td></tr><tr><td id='variant.CharacterValueTooLarge'><code>CharacterValueTooLarge</code></td><td></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../glib_sys/enum.GRegexError.html' title='glib_sys::GRegexError'>GRegexError</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../glib_sys/enum.GRegexError.html' title='glib_sys::GRegexError'>GRegexError</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../glib_sys/enum.GRegexError.html' title='glib_sys::GRegexError'>GRegexError</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='enum' href='../glib_sys/enum.GRegexError.html' title='glib_sys::GRegexError'>GRegexError</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../glib_sys/enum.GRegexError.html' title='glib_sys::GRegexError'>GRegexError</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../glib_sys/enum.GRegexError.html' title='glib_sys::GRegexError'>GRegexError</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../glib_sys/enum.GRegexError.html' title='glib_sys::GRegexError'>GRegexError</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../glib_sys/enum.GRegexError.html' title='glib_sys::GRegexError'>GRegexError</a></code></h4>
+<h4 id='method.clone_from' class='method'><span class="since">1.0.0</span><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "glib_sys";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
