@@ -5,7 +5,7 @@ extern crate time;
 use sigrok_sys::{Struct_sr_context, sr_init, sr_exit, sr_driver_list, Struct_sr_dev_driver};
 use sigrok_sys::{sr_dev_list, sr_driver_init, sr_driver_scan, Struct_sr_dev_inst};
 use sigrok_sys::{sr_dev_inst_channels_get, Struct_sr_channel};
-use sigrok_sys::{sr_session_new, Struct_sr_session};
+use sigrok_sys::{sr_session_new, Struct_sr_session, sr_dev_open};
 use sigrok_sys::{sr_session_datafeed_callback_add, Struct_sr_datafeed_packet, sr_session_dev_add};
 use sigrok_sys::{sr_dev_channel_enable, sr_session_start, Enum_sr_packettype};
 use sigrok_sys::{Struct_sr_datafeed_logic, Enum_sr_configkey, Struct_sr_channel_group};
@@ -231,15 +231,15 @@ impl DriverChannel {
 
     pub fn disable(&self) {
         unsafe {
-            let res = sr_dev_channel_enable(self.context, 0);
-            println!("disabling: {:?}", res);
+            let _ = sr_dev_channel_enable(self.context, 0);
+            // println!("disabling: {:?}", res);
         }
     }
 
     pub fn enable(&self) {
         unsafe {
-            let res = sr_dev_channel_enable(self.context, 1);
-            println!("enabling: {:?}", res);
+            let _ = sr_dev_channel_enable(self.context, 1);
+            // println!("enabling: {:?}", res);
         }
     }
 }
@@ -349,6 +349,7 @@ impl Session {
 
     pub fn add_instance(&self, instance: &DriverInstance) {
         unsafe {
+            let _ = sr_dev_open(instance.context);
             let _ = sr_session_dev_add(self.context, instance.context);
         }
     }
@@ -373,15 +374,16 @@ fn it_works_datafeed(_: &DriverInstance, data: &Datafeed) {
     match data {
         &Datafeed::Logic { unit_size, data } => {
             let _ = unit_size;
-            for i in 0..32 {
+            for i in 0..64 {
                 println!("{}", format!("{:08b}", data[i]).replace("1", ".").replace("0", "X"));
             }
             println!("");
+            ::std::process::exit(0);
         }
         _ => { }
     }
 }
- 
+
 #[test]
 fn it_works() {
     // Print out available drivers.
