@@ -8,7 +8,7 @@ sigrok = "0.3"
 
 ## Example
 
-```
+```rust
 use sigrok::{Sigrok, Session, DriverInstance, Datafeed};
 
 // Create sigrok and session.
