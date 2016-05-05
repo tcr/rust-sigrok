@@ -259,7 +259,7 @@ impl Drop for Sigrok {
 
 pub struct Session {
     context: *mut Struct_sr_session,
-    _callbacks: Vec<Box<SesCall>>,
+    _callbacks: Vec<Box<SessionCallback>>,
 }
 
 pub enum Datafeed<'a> {
@@ -277,7 +277,7 @@ unsafe extern "C" fn sr_session_callback(inst: *const Struct_sr_dev_inst, packet
     // See session.c in sigrok-cli line 186
     let kind = (*packet)._type;
 
-    let cb: &Box<SesCall> = mem::transmute(data);
+    let cb: &Box<SessionCallback> = mem::transmute(data);
     let driver = DriverInstance {
         context: inst as *mut _,
     };
@@ -323,7 +323,7 @@ unsafe extern "C" fn sr_session_callback(inst: *const Struct_sr_dev_inst, packet
     }
 }
 
-pub type SesCall = Fn(&DriverInstance, &Datafeed);
+pub type SessionCallback = Fn(&DriverInstance, &Datafeed);
 
 impl Session {
     pub fn new(ctx: &mut Sigrok) -> Option<Session> {
@@ -340,7 +340,7 @@ impl Session {
         }
     }
 
-    pub fn callback_add(&mut self, mut callback: Box<SesCall>) {
+    pub fn callback_add(&mut self, callback: Box<SessionCallback>) {
         unsafe {
             self._callbacks.push(callback);
             let _ = sr_session_datafeed_callback_add(self.context, Some(sr_session_callback), mem::transmute(&self._callbacks[self._callbacks.len() - 1]));
@@ -361,7 +361,7 @@ impl Session {
 }
 
 
-fn main_loop() {
+pub fn main_loop() {
     unsafe {
         let main_loop = g_main_loop_new(0x0 as *mut _, 0);
         g_main_loop_run(main_loop);
@@ -369,9 +369,10 @@ fn main_loop() {
 }
 
 #[cfg(test)]
-fn it_works_datafeed(driver: &DriverInstance, data: &Datafeed) {
+fn it_works_datafeed(_: &DriverInstance, data: &Datafeed) {
     match data {
         &Datafeed::Logic { unit_size, data } => {
+            let _ = unit_size;
             for i in 0..32 {
                 println!("{}", format!("{:08b}", data[i]).replace("1", ".").replace("0", "X"));
             }
@@ -380,22 +381,27 @@ fn it_works_datafeed(driver: &DriverInstance, data: &Datafeed) {
         _ => { }
     }
 }
-
+ 
 #[test]
 fn it_works() {
+    // Print out available drivers.
     let mut ctx = Sigrok::new().unwrap();
     for driver in ctx.drivers() {
         println!("- {:?}: {} v{}", driver.name(), driver.long_name(), driver.api_version());
     }
 
+    // Create session.
     let mut ses = Session::new(&mut ctx).unwrap();
-    ses.callback_add(Box::new(it_works_datafeed));
 
+    // Get demo driver.
     if let Some(driver) = ctx.drivers().iter().find(|x| x.name() == "demo") {
-        println!("demo {:?}", driver);
+        // Initialize driver.
         let demo = ctx.init_driver(driver).unwrap();
+
+        // Scan for devices.
         demo.scan();
         for device in demo.devices() {
+            // Attach device.
             ses.add_instance(&device);
 
             // Set pattern mode on digital outputs.
@@ -404,6 +410,8 @@ fn it_works() {
             }
         }
 
+        // Register callback, start session and loop endlessly.
+        ses.callback_add(Box::new(it_works_datafeed));
         ses.start();
         main_loop();
     }
