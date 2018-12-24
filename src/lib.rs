@@ -284,7 +284,7 @@ unsafe extern "C" fn sr_session_callback(inst: *const Struct_sr_dev_inst, packet
     // See session.c in sigrok-cli line 186
     let kind = (*packet)._type;
 
-    let cb: &Box<SessionCallback> = mem::transmute(data);
+    let cb: &mut Box<SessionCallback> = mem::transmute(data);
     let driver = DriverInstance {
         context: inst as *mut _,
     };
@@ -330,7 +330,7 @@ unsafe extern "C" fn sr_session_callback(inst: *const Struct_sr_dev_inst, packet
     }
 }
 
-pub type SessionCallback = Fn(&DriverInstance, &Datafeed);
+pub type SessionCallback = FnMut(&DriverInstance, &Datafeed);
 
 impl Session {
     pub fn new(ctx: &mut Sigrok) -> Option<Session> {
