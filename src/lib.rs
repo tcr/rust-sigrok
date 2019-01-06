@@ -193,7 +193,24 @@ impl DriverInstance {
         channels
     }
 
-    pub fn config_set(&self, group: &DriverChannelGroup, config: &ConfigOption) {
+    pub fn config_set(&self, config: &ConfigOption) {
+        unsafe {
+            match config {
+                &ConfigOption::PatternMode(ref value) => {
+                    let gvar = glib_sys::g_variant_new_string(CString::new(value.as_bytes()).unwrap().as_ptr());
+                    let res = sr_config_set(self.context, 0 as *const Struct_sr_channel_group, Enum_sr_configkey::SR_CONF_PATTERN_MODE as u32, gvar);
+                    // assert_eq!(res, 0);
+                }
+                &ConfigOption::SampleRate(value) => {
+                    let gvar = glib_sys::g_variant_new_uint64(value);
+                    let res = sr_config_set(self.context, 0 as *const Struct_sr_channel_group, Enum_sr_configkey::SR_CONF_SAMPLERATE as u32, gvar);
+                    // assert_eq!(res, 0);
+                }
+            }
+        }
+    }
+
+    pub fn config_set_channel_group(&self, group: &DriverChannelGroup, config: &ConfigOption) {
         unsafe {
             match config {
                 &ConfigOption::PatternMode(ref value) => {
@@ -284,7 +301,7 @@ unsafe extern "C" fn sr_session_callback(inst: *const Struct_sr_dev_inst, packet
     // See session.c in sigrok-cli line 186
     let kind = (*packet)._type;
 
-    let cb: &Box<SessionCallback> = mem::transmute(data);
+    let cb: &mut Box<SessionCallback> = mem::transmute(data);
     let driver = DriverInstance {
         context: inst as *mut _,
     };
@@ -330,7 +347,7 @@ unsafe extern "C" fn sr_session_callback(inst: *const Struct_sr_dev_inst, packet
     }
 }
 
-pub type SessionCallback = Fn(&DriverInstance, &Datafeed);
+pub type SessionCallback = FnMut(&DriverInstance, &Datafeed);
 
 impl Session {
     pub fn new(ctx: &mut Sigrok) -> Option<Session> {
@@ -415,12 +432,12 @@ fn it_works() {
 
             // Set pattern mode on digital outputs.
             if let Some(group) = device.channel_groups().get(0) {
-                device.config_set(&group, &ConfigOption::PatternMode("pattern".to_owned()));
+                device.config_set_channel_group(&group, &ConfigOption::PatternMode("pattern".to_owned()));
             }
 
             // Set sample rate.
             for group in device.channel_groups() {
-                device.config_set(&group, &ConfigOption::SampleRate(1_000_000));
+                device.config_set_channel_group(&group, &ConfigOption::SampleRate(1_000_000));
             }
         }
 
