@@ -1,13 +1,2 @@
-[package]
-name = "sigrok"
-version = "0.3.1"
-authors = ["Tim Ryan <id@timryan.org>"]
-description = "High-level bindings for libsigrok"
-license = "GPL-3.0"
-repository = "https://github.com/tcr/rust-sigrok.git"
-homepage = "https://github.com/tcr/rust-sigrok.git"
-
-[dependencies]
-sigrok-sys = "0.2.0"
-glib-sys = "0.3.0"
-time = "0.1"
+[workspace]
+members = ["sigrok", "sigrok-sys"]

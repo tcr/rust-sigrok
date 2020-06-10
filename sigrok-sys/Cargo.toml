@@ -1,0 +1,19 @@
+[package]
+name = "sigrok-sys"
+edition = "2018"
+authors = ["lights0123 <developer@lights0123.com>", "Tim Ryan <id@timryan.org>"]
+version = "0.3.0"
+repository = "https://github.com/tcr/rust-sigrok"
+readme = "README.md"
+description = "Bindings for libsigrok"
+license = "GPL-3.0"
+links = "sigrok"
+build = "build.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+glib-sys = "0.9.1"
+
+[build-dependencies]
+pkg-config = "0.3.17"
